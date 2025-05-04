@@ -10,6 +10,7 @@ const colorPalettes = {
     tabIconSelected: tintColorLight,
     accept: "#4CAF50",
     reject: "#F44336",
+    profileCardBackground: "#f0f0f0",
   },
   dark: {
     text: "#b0afaf",
@@ -19,6 +20,7 @@ const colorPalettes = {
     tabIconSelected: tintColorDark,
     accept: "#81C784",
     reject: "#E57373",
+    profileCardBackground: "#424242",
   },
 };
 
