@@ -1,0 +1,15 @@
+{
+  "notFound.title": "This screen doesn't exist.",
+  "notFound.goHome": "Go to home screen!",
+  "settings.title": "Settings Screen",
+  "settings.switchMode": "Switch to {{mode}} Mode",
+  "settings.currentMode": "Current mode: {{mode}}",
+  "profile.goToSettings": "Go to Settings",
+  "profile.loading": "Loading...",
+  "jobs.loading": "Loading jobs...",
+  "jobs.refreshing": "Refreshing...",
+  "jobs.noJobs": "No jobs found.",
+  "emptyState.refresh": "Refresh",
+  "job.notFound": "Job not found.",
+  "app.swipejobs": "swipejobs"
+}

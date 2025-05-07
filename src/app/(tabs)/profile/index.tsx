@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -15,13 +16,14 @@ export default function Profile() {
   const colorMode = useSelector(selectColorMode);
   const colors = colorPalettes[colorMode];
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleGoToSettings = () => router.push("/settings");
 
   if (isProfileDataLoading) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Text style={{ color: colors.text }}>Loading...</Text>
+        <Text style={{ color: colors.text }}>{t("profile.loading")}</Text>
       </View>
     );
   }
@@ -34,7 +36,7 @@ export default function Profile() {
         onPress={handleGoToSettings}
       >
         <Text style={[styles.settingsButtonText, { color: colors.background }]}>
-          Go to Settings
+          {t("profile.goToSettings")}
         </Text>
       </Pressable>
     </View>

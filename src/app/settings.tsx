@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,22 +10,27 @@ export default function SettingsScreen() {
   const dispatch = useDispatch();
   const colorMode = useSelector(selectColorMode);
   const colors = getColors(colorMode);
+  const { t } = useTranslation();
 
   const handleToggleColorMode = () => dispatch(toggleColorMode());
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.text, { color: colors.text }]}>Settings Screen</Text>
+      <Text style={[styles.text, { color: colors.text }]}>
+        {t("settings.title")}
+      </Text>
       <Pressable
         style={[styles.button, { backgroundColor: colors.tint }]}
         onPress={handleToggleColorMode}
       >
         <Text style={[styles.buttonText, { color: colors.background }]}>
-          Switch to {colorMode === "light" ? "Dark" : "Light"} Mode
+          {t("settings.switchMode", {
+            mode: colorMode === "light" ? "Dark" : "Light",
+          })}
         </Text>
       </Pressable>
       <Text style={[styles.modeText, { color: colors.text }]}>
-        Current mode: {colorMode}
+        {t("settings.currentMode", { mode: colorMode })}
       </Text>
     </View>
   );

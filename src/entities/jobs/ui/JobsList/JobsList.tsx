@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   FlatList,
@@ -29,12 +30,13 @@ export const JobsList = ({
   const colors = colorPalettes[colorMode];
   const styles = getStyles(colors);
   const router = useRouter();
+  const { t } = useTranslation();
 
   if (isLoading && !isFetching) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={colors.tint} />
-        <Text style={styles.loadingText}>Loading jobs...</Text>
+        <Text style={styles.loadingText}>{t("jobs.loading")}</Text>
       </View>
     );
   }
@@ -43,7 +45,7 @@ export const JobsList = ({
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={colors.tint} />
-        <Text style={styles.loadingText}>Refreshing...</Text>
+        <Text style={styles.loadingText}>{t("jobs.refreshing")}</Text>
       </View>
     );
   }
@@ -51,7 +53,7 @@ export const JobsList = ({
   if (!data.ids.length) {
     return (
       <EmptyState
-        message="No jobs found."
+        message={t("jobs.noJobs")}
         backgroundColor={colors.background}
         textColor={colors.text}
         onRefresh={onRefresh}
