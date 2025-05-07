@@ -3,10 +3,16 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { persistReducer, persistStore } from "redux-persist";
 
+import generalReducer from "@shared/api/generalSlice";
+
 import { jobsApi } from "@entities/jobs/api/jobsApi";
 import { profileApi } from "@entities/profile/api/profileApi";
 
-import generalReducer from "./generalSlice";
+let reactotronEnhancer: any = undefined;
+if (__DEV__) {
+  const reactotron = require("../../../reactotronConfig").default;
+  reactotronEnhancer = reactotron.createEnhancer?.();
+}
 
 const rootReducer = combineReducers({
   [jobsApi.reducerPath]: jobsApi.reducer,
@@ -27,9 +33,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    })
-      .concat(jobsApi.middleware)
-      .concat(profileApi.middleware),
+    }).concat(jobsApi.middleware, profileApi.middleware),
+  enhancers: (getDefaultEnhancers) =>
+    reactotronEnhancer
+      ? getDefaultEnhancers().concat(reactotronEnhancer)
+      : getDefaultEnhancers(),
 });
 
 setupListeners(store.dispatch);

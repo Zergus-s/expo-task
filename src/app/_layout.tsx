@@ -1,4 +1,3 @@
-import { selectColorMode, setColorMode } from "@config/store/generalSlice";
 import { RootState } from "@config/store/store";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
@@ -11,12 +10,11 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import React from "react";
-import { View } from "react-native";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getColors } from "@shared/styles/colors";
+import { selectColorMode, setColorMode } from "@shared/api/generalSlice";
 import { useColorScheme as useSystemColorScheme } from "@shared/styles/useColorScheme";
 
 import { StoreProvider } from "../config/providers/StoreProvider";
@@ -50,9 +48,11 @@ export default function RootLayout() {
   }
 
   return (
-    <StoreProvider>
-      <RootLayoutNav />
-    </StoreProvider>
+    <SafeAreaProvider>
+      <StoreProvider>
+        <RootLayoutNav />
+      </StoreProvider>
+    </SafeAreaProvider>
   );
 }
 
@@ -68,18 +68,35 @@ function RootLayoutNav() {
   }, [systemColorScheme]);
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider value={colorMode === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="index" redirect />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-          <Stack.Screen
-            name="(tabs)/settings"
-            options={{ title: "Settings" }}
-          />
-        </Stack>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <ThemeProvider value={colorMode === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          redirect
+          options={{
+            headerStyle: { backgroundColor: "#000" },
+            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff" },
+          }}
+        />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="settings"
+          options={{
+            title: "Settings",
+            headerBackTitle: "Back",
+            headerStyle: { backgroundColor: "#000" },
+            headerTintColor: "#fff",
+            headerTitleStyle: { color: "#fff" },
+          }}
+        />
+        <Stack.Screen
+          name="job"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
+    </ThemeProvider>
   );
 }

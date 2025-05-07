@@ -1,8 +1,8 @@
 import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import { selectColorMode } from "src/config/store/generalSlice";
 
+import { selectColorMode } from "@shared/api/generalSlice";
 import colorPalettes from "@shared/styles/colors";
 
 import { Profile } from "@entities/profile/model/profile";
@@ -21,7 +21,7 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
       style={[
         styles.card,
         {
-          backgroundColor: colors.profileCardBackground,
+          backgroundColor: colors.cardBackground,
           borderColor: colors.tabIconDefault,
         },
       ]}

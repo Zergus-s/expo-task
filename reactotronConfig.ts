@@ -11,7 +11,7 @@ declare global {
 const reactotron = Reactotron
   .configure({
     name: "ExpoTaskApp",
-    host: "localhost", // Change to your machine's IP if running on device
+    host: "localhost", 
   })
   .useReactNative()
   .use(reactotronRedux())
