@@ -15,6 +15,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectColorMode, setColorMode } from "@shared/api/generalSlice";
+import "@shared/lib/i18n";
 import { useColorScheme as useSystemColorScheme } from "@shared/styles/useColorScheme";
 
 import { StoreProvider } from "../config/providers/StoreProvider";

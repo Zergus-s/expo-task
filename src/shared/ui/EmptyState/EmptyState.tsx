@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, Text, View } from "react-native";
 
 import styles from "./EmptyState.styles";
@@ -11,6 +12,7 @@ export function EmptyState({
   onRefresh,
 }: EmptyStateProps) {
   const handleRefresh = onRefresh;
+  const { t } = useTranslation();
 
   return (
     <View
@@ -24,7 +26,7 @@ export function EmptyState({
       </Text>
       {onRefresh && (
         <Pressable style={styles.button} onPress={handleRefresh}>
-          <Text style={styles.buttonText}>Refresh</Text>
+          <Text style={styles.buttonText}>{t("emptyState.refresh")}</Text>
         </Pressable>
       )}
     </View>

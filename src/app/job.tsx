@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -26,6 +27,7 @@ export default function Job() {
 
   const { data } = useGetJobsQuery();
   const job = id && data?.entities?.[id];
+  const { t } = useTranslation();
 
   if (!job) {
     return (
@@ -39,7 +41,7 @@ export default function Job() {
         ]}
       >
         <AppHeader profileName={profileName} />
-        <Text style={{ color: colors.text }}>Job not found.</Text>
+        <Text style={{ color: colors.text }}>{t("job.notFound")}</Text>
       </View>
     );
   }

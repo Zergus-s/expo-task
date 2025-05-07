@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -7,12 +8,14 @@ import { AppHeaderProps } from "./types/AppHeader.types";
 
 export function AppHeader({ profileName }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.leftRow}>
         <Text style={styles.logoText}>
-          swipe<Text style={styles.logoBold}>jobs</Text>
+          {t("app.swipejobs").slice(0, 5)}
+          <Text style={styles.logoBold}>{t("app.swipejobs").slice(5)}</Text>
         </Text>
       </View>
       <Text style={styles.profileName}>{profileName || ""}</Text>
