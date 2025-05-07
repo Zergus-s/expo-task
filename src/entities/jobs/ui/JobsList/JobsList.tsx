@@ -35,7 +35,7 @@ export const JobsList = ({
 
   if (isLoading && !isFetching) {
     return (
-      <View style={styles.centered}>
+      <View testID="jobs-list-loading" style={styles.centered}>
         <ActivityIndicator size="large" color={colors.tint} />
         <Text style={styles.loadingText}>{t("jobs.loading")}</Text>
       </View>
@@ -44,7 +44,7 @@ export const JobsList = ({
 
   if (isFetching) {
     return (
-      <View style={styles.centered}>
+      <View testID="jobs-list-fetching" style={styles.centered}>
         <ActivityIndicator size="large" color={colors.tint} />
         <Text style={styles.loadingText}>{t("jobs.refreshing")}</Text>
       </View>
@@ -64,6 +64,7 @@ export const JobsList = ({
 
   return (
     <FlatList
+      testID="jobs-list-root"
       data={data.ids}
       keyExtractor={(item) => item}
       contentContainerStyle={styles.listContent}

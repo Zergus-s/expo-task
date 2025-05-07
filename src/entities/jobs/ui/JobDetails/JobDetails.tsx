@@ -18,12 +18,8 @@ import { openInMaps } from "@shared/lib/openInMaps";
 import colorPalettes from "@shared/styles/colors";
 
 import { formatShift } from "../../lib/formatShift";
-import { Job } from "../../model/jobsTypes";
 import { styles, stylesDynamic } from "./JobDetails.styles";
-import type {
-  JobDetailsProps,
-  JobDetailsSectionProps,
-} from "./JobDetails.types";
+import { JobDetailsProps, JobDetailsSectionProps } from "./JobDetails.types";
 
 const JobDetailsSection = ({
   icon,
@@ -46,7 +42,10 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
   const handleOpenInMaps = () => openInMaps(job);
 
   return (
-    <View style={[styles.root, { paddingBottom: insets.bottom }]}>
+    <View
+      testID="job-details-root"
+      style={[styles.root, { paddingBottom: insets.bottom }]}
+    >
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
@@ -71,10 +70,16 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
             </View>
           </View>
           <View style={styles.header}>
-            <Text style={[styles.title, { color: colors.text }]}>
+            <Text
+              style={[styles.title, { color: colors.text }]}
+              testID="job-details-title"
+            >
               {job.jobTitle.name}
             </Text>
-            <Text style={[styles.company, { color: colors.text }]}>
+            <Text
+              style={[styles.company, { color: colors.text }]}
+              testID="job-details-company"
+            >
               {job.company.name}
             </Text>
           </View>
@@ -178,6 +183,7 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
                   stylesDynamic.actionBtnReject(colors.text),
                 ]}
                 onPress={onReject}
+                testID="job-details-reject-btn"
               >
                 <Text style={stylesDynamic.actionBtnRejectText(colors.text)}>
                   {i18n.jobDetails.noThanks}
@@ -189,6 +195,7 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
                   stylesDynamic.actionBtnAccept(colors.text),
                 ]}
                 onPress={onAccept}
+                testID="job-details-accept-btn"
               >
                 <Text
                   style={stylesDynamic.actionBtnAcceptText(colors.background)}

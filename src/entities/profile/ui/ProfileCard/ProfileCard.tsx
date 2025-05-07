@@ -18,6 +18,7 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
 
   return (
     <View
+      testID="profile-card-root"
       style={[
         styles.card,
         {
@@ -28,6 +29,7 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
     >
       <View style={styles.avatarContainer}>
         <View
+          testID="profile-card-avatar"
           style={[
             styles.avatar,
             {
@@ -36,25 +38,37 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
             },
           ]}
         >
-          <Text style={[styles.avatarText, { color: colors.background }]}>
+          <Text
+            testID="profile-card-initials"
+            style={[styles.avatarText, { color: colors.background }]}
+          >
             {initials}
           </Text>
         </View>
       </View>
       <View style={styles.infoContainer}>
-        <Text style={[styles.name, { color: colors.text }]}>
+        <Text
+          testID="profile-card-name"
+          style={[styles.name, { color: colors.text }]}
+        >
           {profile.firstName} {profile.lastName}
         </Text>
         <View style={styles.row}>
           <MaterialIcons name="email" size={18} color={colors.tint} />
-          <Text style={[styles.email, { color: colors.text }]}>
+          <Text
+            testID="profile-card-email"
+            style={[styles.email, { color: colors.text }]}
+          >
             {profile.email}
           </Text>
         </View>
         {profile.phoneNumber && (
           <View style={styles.row}>
             <Feather name="phone" size={17} color={colors.tint} />
-            <Text style={[styles.phone, { color: colors.text }]}>
+            <Text
+              testID="profile-card-phone"
+              style={[styles.phone, { color: colors.text }]}
+            >
               {profile.phoneNumber}
             </Text>
           </View>
@@ -62,13 +76,19 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
         <View style={[styles.divider, { backgroundColor: colors.divider }]} />
         <View style={styles.row}>
           <Entypo name="location-pin" size={18} color={colors.tint} />
-          <Text style={[styles.address, { color: colors.text }]}>
+          <Text
+            testID="profile-card-address"
+            style={[styles.address, { color: colors.text }]}
+          >
             {profile.address.formattedAddress}
           </Text>
         </View>
         <View style={styles.row}>
           <Feather name="map-pin" size={16} color={colors.tint} />
-          <Text style={[styles.distance, { color: colors.tint }]}>
+          <Text
+            testID="profile-card-distance"
+            style={[styles.distance, { color: colors.tint }]}
+          >
             Max Job Distance: {profile.maxJobDistance} miles
           </Text>
         </View>
