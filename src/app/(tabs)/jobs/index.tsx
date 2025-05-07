@@ -1,11 +1,9 @@
 import React from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { JobsList } from "@entities/jobs/ui/JobsList/JobsList";
 
 import { useGetJobs } from "@features/jobs/lib/useGetJobs";
-
-import styles from "./JobsScreen.styles";
 
 export default function JobsScreen() {
   const { jobsData, isJobsLoading, refetchJobs, isJobsFetching } = useGetJobs();
@@ -21,3 +19,13 @@ export default function JobsScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
