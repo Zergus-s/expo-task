@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
-import { JobDetails } from "src/entities/jobs/ui/JobDetails/JobDetails";
-import { selectColorMode } from "src/shared/api/generalSlice";
 
+import { selectColorMode } from "@shared/api/generalSlice";
 import colorPalettes from "@shared/styles/colors";
 import { AppHeader } from "@shared/ui/AppHeader/AppHeader";
 
 import { useGetJobsQuery } from "@entities/jobs/api/jobsApi";
+import { JobDetails } from "@entities/jobs/ui/JobDetails/JobDetails";
 
 import { useAcceptJob } from "@features/jobActions/lib/acceptJob";
 import { useRejectJob } from "@features/jobActions/lib/rejectJob";
@@ -57,20 +57,12 @@ export default function Job() {
       <JobDetails
         job={job}
         onAccept={async () => {
-          try {
-            await acceptJob(job.id);
-            router.back();
-          } catch (e) {
-            // handle error (optional: show toast or alert)
-          }
+          await acceptJob(job.id);
+          router.back();
         }}
         onReject={async () => {
-          try {
-            await rejectJob(job.id);
-            router.back();
-          } catch (e) {
-            // handle error (optional: show toast or alert)
-          }
+          await rejectJob(job.id);
+          router.back();
         }}
       />
     </>
