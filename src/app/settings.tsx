@@ -1,11 +1,9 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectColorMode, toggleColorMode } from "@shared/api/generalSlice";
 import { getColors } from "@shared/styles/colors";
-
-import styles from "./SettingsScreen.styles";
 
 export default function SettingsScreen() {
   const dispatch = useDispatch();
@@ -31,3 +29,30 @@ export default function SettingsScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 24,
+  },
+  button: {
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginTop: 12,
+  },
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  modeText: {
+    marginTop: 16,
+    fontSize: 16,
+  },
+});

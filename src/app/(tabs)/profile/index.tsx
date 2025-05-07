@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import { selectColorMode } from "@shared/api/generalSlice";
@@ -9,8 +9,6 @@ import colorPalettes from "@shared/styles/colors";
 import { ProfileCard } from "@entities/profile/ui/ProfileCard/ProfileCard";
 
 import { useGetProfile } from "@features/profile/lib/useGetProfile";
-
-import styles from "./ProfileScreen.styles";
 
 export default function Profile() {
   const { isProfileDataLoading, profileData } = useGetProfile();
@@ -42,3 +40,22 @@ export default function Profile() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 24,
+  },
+  settingsButton: {
+    marginTop: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  settingsButtonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});
