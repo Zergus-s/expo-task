@@ -1,14 +1,7 @@
 import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import React from "react";
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image } from "expo-image";
+import React, { useState } from "react";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
@@ -19,27 +12,37 @@ import colorPalettes from "@shared/styles/colors";
 
 import { formatShift } from "../../lib/formatShift";
 import { styles, stylesDynamic } from "./JobDetails.styles";
-import { JobDetailsProps, JobDetailsSectionProps } from "./JobDetails.types";
-
-const JobDetailsSection = ({
-  icon,
-  children,
-  style,
-}: JobDetailsSectionProps) => (
-  <View style={[styles.sectionRow, style]}>
-    <View style={styles.sectionIcon}>{icon}</View>
-    <View style={[styles.section, styles.sectionContent]}>{children}</View>
-  </View>
-);
+import { JobDetailsProps } from "./JobDetails.types";
+import { JobDetailsActions } from "./internals/JobDetailsActions";
+import { JobDetailsSection } from "./internals/JobDetailsSection";
 
 export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
   const insets = useSafeAreaInsets();
   const colorMode = useSelector(selectColorMode);
   const colors = colorPalettes[colorMode];
+  const [loading, setLoading] = useState<"accept" | "reject" | null>(null);
 
   if (!job) return null;
 
   const handleOpenInMaps = () => openInMaps(job);
+
+  const handleAccept = async () => {
+    setLoading("accept");
+    try {
+      await onAccept?.();
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleReject = async () => {
+    setLoading("reject");
+    try {
+      await onReject?.();
+    } finally {
+      setLoading(null);
+    }
+  };
 
   return (
     <View
@@ -65,7 +68,8 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
               <Image
                 source={{ uri: job.jobTitle.imageUrl }}
                 style={styles.image}
-                resizeMode="cover"
+                contentFit="cover"
+                accessibilityLabel={job.jobTitle.name}
               />
             </View>
           </View>
@@ -134,7 +138,12 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
               <Text style={[styles.sectionTitle, { color: colors.text }]}>
                 {i18n.jobDetails.location}
               </Text>
-              <Pressable style={styles.shiftRow} onPress={handleOpenInMaps}>
+              <Pressable
+                style={styles.shiftRow}
+                onPress={handleOpenInMaps}
+                accessibilityRole="button"
+                accessibilityLabel={`Open ${job.company.address.formattedAddress} in maps`}
+              >
                 <Text style={stylesDynamic.locationText(colors.text)}>
                   {job.company.address.formattedAddress}
                 </Text>
@@ -176,34 +185,12 @@ export const JobDetails = ({ job, onAccept, onReject }: JobDetailsProps) => {
                 </View>
               </JobDetailsSection>
             )}
-            <View style={styles.actionsRow}>
-              <Pressable
-                style={[
-                  styles.actionBtn,
-                  stylesDynamic.actionBtnReject(colors.text),
-                ]}
-                onPress={onReject}
-                testID="job-details-reject-btn"
-              >
-                <Text style={stylesDynamic.actionBtnRejectText(colors.text)}>
-                  {i18n.jobDetails.noThanks}
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.actionBtn,
-                  stylesDynamic.actionBtnAccept(colors.text),
-                ]}
-                onPress={onAccept}
-                testID="job-details-accept-btn"
-              >
-                <Text
-                  style={stylesDynamic.actionBtnAcceptText(colors.background)}
-                >
-                  {i18n.jobDetails.illTakeIt}
-                </Text>
-              </Pressable>
-            </View>
+            <JobDetailsActions
+              loading={loading}
+              onAccept={handleAccept}
+              onReject={handleReject}
+              colors={colors}
+            />
           </View>
         </View>
       </ScrollView>
