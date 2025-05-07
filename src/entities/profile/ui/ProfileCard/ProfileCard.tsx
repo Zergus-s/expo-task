@@ -30,7 +30,10 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
         <View
           style={[
             styles.avatar,
-            { backgroundColor: colors.tint, shadowColor: colors.tint },
+            {
+              backgroundColor: colors.avatarBackground,
+              shadowColor: colors.avatarShadow,
+            },
           ]}
         >
           <Text style={[styles.avatarText, { color: colors.background }]}>
@@ -56,9 +59,7 @@ export const ProfileCard = ({ profile }: { profile: Profile }) => {
             </Text>
           </View>
         )}
-        <View
-          style={[styles.divider, { backgroundColor: colors.tabIconDefault }]}
-        />
+        <View style={[styles.divider, { backgroundColor: colors.divider }]} />
         <View style={styles.row}>
           <Entypo name="location-pin" size={18} color={colors.tint} />
           <Text style={[styles.address, { color: colors.text }]}>
