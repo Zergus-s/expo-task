@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
 import { selectColorMode } from "@shared/api/generalSlice";
+import { ColorMode } from "@shared/model/general";
 import colorPalettes from "@shared/styles/colors";
 import { AppHeader } from "@shared/ui/AppHeader/AppHeader";
 
@@ -19,7 +20,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorMode = useSelector(selectColorMode);
-  const colors = colorPalettes[colorMode];
+  const colors = colorPalettes[colorMode as ColorMode];
   const insets = useSafeAreaInsets();
   const { profileData } = useGetProfile();
   const profileName = profileData

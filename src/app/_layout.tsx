@@ -12,10 +12,12 @@ import { useEffect } from "react";
 import React from "react";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectColorMode, setColorMode } from "@shared/api/generalSlice";
 import "@shared/lib/i18n";
+import { ColorMode } from "@shared/model/general";
 import { useColorScheme as useSystemColorScheme } from "@shared/styles/useColorScheme";
 
 import { StoreProvider } from "../config/providers/StoreProvider";
@@ -63,13 +65,18 @@ function RootLayoutNav() {
   const systemColorScheme = useSystemColorScheme();
 
   React.useEffect(() => {
-    if (systemColorScheme === "dark" || systemColorScheme === "light") {
+    if (
+      systemColorScheme === ColorMode.Dark ||
+      systemColorScheme === ColorMode.Light
+    ) {
       dispatch(setColorMode(systemColorScheme));
     }
   }, [systemColorScheme]);
 
   return (
-    <ThemeProvider value={colorMode === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider
+      value={colorMode === ColorMode.Dark ? DarkTheme : DefaultTheme}
+    >
       <Stack>
         <Stack.Screen
           name="index"
@@ -98,6 +105,7 @@ function RootLayoutNav() {
           }}
         />
       </Stack>
+      <Toast />
     </ThemeProvider>
   );
 }

@@ -1,7 +1,23 @@
+import { ColorMode } from "@shared/model/general";
+
+export type ColorPalette = {
+  text: string;
+  background: string;
+  tint: string;
+  tabIconDefault: string;
+  tabIconSelected: string;
+  accept: string;
+  reject: string;
+  cardBackground: string;
+  divider: string;
+  avatarBackground: string;
+  avatarShadow: string;
+};
+
 const tintColorLight = "#2f95dc";
 const tintColorDark = "#fff";
 
-const colorPalettes = {
+const colorPalettes: Record<string, ColorPalette> = {
   light: {
     text: "#3b3b3b",
     background: "#fff",
@@ -30,6 +46,6 @@ const colorPalettes = {
   },
 };
 
-export const getColors = (mode: "light" | "dark") => colorPalettes[mode];
+export const getColors = (mode: ColorMode) => colorPalettes[mode];
 
 export default colorPalettes;

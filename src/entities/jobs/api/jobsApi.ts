@@ -39,19 +39,59 @@ export const jobsApi = createApi({
           response.map(jobDataMapper)
         ),
     }),
-    acceptJob: builder.mutation<{ success: boolean; message: string }, string>({
-      query: (jobId) => ({
+    acceptJob: builder.mutation<
+      { success: boolean; message: string },
+      { jobId: string; onSuccess: () => void; onError: (error: any) => void }
+    >({
+      query: ({ jobId }) => ({
         url: getAcceptJobUrl(TEST_WORKER_ID, jobId),
         method: "GET",
       }),
       invalidatesTags: [{ type: "JobList", id: "LIST" }],
+      async onQueryStarted(
+        { jobId, onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+            draft.ids = draft.ids.filter((id) => id !== jobId);
+          })
+        );
+        try {
+          await queryFulfilled;
+          onSuccess();
+        } catch (error) {
+          patchResult.undo();
+          onError(error);
+        }
+      },
     }),
-    rejectJob: builder.mutation<{ success: boolean; message: string }, string>({
-      query: (jobId) => ({
+    rejectJob: builder.mutation<
+      { success: boolean; message: string },
+      { jobId: string; onSuccess: () => void; onError: (error: any) => void }
+    >({
+      query: ({ jobId }) => ({
         url: getRejectJobUrl(TEST_WORKER_ID, jobId),
         method: "GET",
       }),
       invalidatesTags: [{ type: "JobList", id: "LIST" }],
+      async onQueryStarted(
+        { jobId, onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          jobsApi.util.updateQueryData("getJobs", undefined, (draft) => {
+            draft.ids = draft.ids.filter((id) => id !== jobId);
+          })
+        );
+        try {
+          await queryFulfilled;
+          onSuccess();
+        } catch (error) {
+          patchResult.undo();
+          onError(error);
+        }
+      },
     }),
   }),
 });
