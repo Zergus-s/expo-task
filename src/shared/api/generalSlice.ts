@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type ColorMode = "light" | "dark";
+import { ColorMode } from "@shared/model/general";
 
 export interface GeneralState {
   colorMode: ColorMode;
 }
 
 const initialState: GeneralState = {
-  colorMode: "light",
+  colorMode: ColorMode.Light,
 };
 
 export const generalSlice = createSlice({
@@ -18,7 +18,8 @@ export const generalSlice = createSlice({
       state.colorMode = action.payload;
     },
     toggleColorMode(state) {
-      state.colorMode = state.colorMode === "light" ? "dark" : "light";
+      state.colorMode =
+        state.colorMode === ColorMode.Light ? ColorMode.Dark : ColorMode.Light;
     },
   },
 });

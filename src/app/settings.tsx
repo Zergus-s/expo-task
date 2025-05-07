@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectColorMode, toggleColorMode } from "@shared/api/generalSlice";
+import { ColorMode } from "@shared/model/general";
 import { getColors } from "@shared/styles/colors";
 
 export default function SettingsScreen() {
@@ -25,7 +26,7 @@ export default function SettingsScreen() {
       >
         <Text style={[styles.buttonText, { color: colors.background }]}>
           {t("settings.switchMode", {
-            mode: colorMode === "light" ? "Dark" : "Light",
+            mode: colorMode === ColorMode.Light ? "Dark" : "Light",
           })}
         </Text>
       </Pressable>

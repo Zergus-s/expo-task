@@ -12,6 +12,8 @@ import { AppHeader } from "@shared/ui/AppHeader/AppHeader";
 
 import { useGetJobsQuery } from "@entities/jobs/api/jobsApi";
 
+import { useAcceptJob } from "@features/jobActions/lib/acceptJob";
+import { useRejectJob } from "@features/jobActions/lib/rejectJob";
 import { useGetProfile } from "@features/profile/lib/useGetProfile";
 
 export default function Job() {
@@ -28,6 +30,9 @@ export default function Job() {
   const { data } = useGetJobsQuery();
   const job = id && data?.entities?.[id];
   const { t } = useTranslation();
+
+  const { acceptJob, isLoading: isAccepting } = useAcceptJob();
+  const { rejectJob, isLoading: isRejecting } = useRejectJob();
 
   if (!job) {
     return (
@@ -51,10 +56,22 @@ export default function Job() {
       <AppHeader profileName={profileName} />
       <JobDetails
         job={job}
-        colors={colors}
-        insets={insets}
-        router={router}
-        profileName={profileName}
+        onAccept={async () => {
+          try {
+            await acceptJob(job.id);
+            router.back();
+          } catch (e) {
+            // handle error (optional: show toast or alert)
+          }
+        }}
+        onReject={async () => {
+          try {
+            await rejectJob(job.id);
+            router.back();
+          } catch (e) {
+            // handle error (optional: show toast or alert)
+          }
+        }}
       />
     </>
   );

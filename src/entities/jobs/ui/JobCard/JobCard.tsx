@@ -2,21 +2,13 @@ import { Image } from "expo-image";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
+import { ColorMode } from "@shared/model/general";
 import colorPalettes from "@shared/styles/colors";
 
-import { Job } from "@entities/jobs/model/jobsTypes";
-
 import styles from "./JobCard.styles";
+import { JobCardProps } from "./JobCard.types";
 
-export const JobCard = ({
-  job,
-  colorMode,
-  onPress,
-}: {
-  job: Job;
-  colorMode: "light" | "dark";
-  onPress?: () => void;
-}) => {
+export const JobCard = ({ job, colorMode, onPress }: JobCardProps) => {
   const colors = colorPalettes[colorMode];
 
   return (

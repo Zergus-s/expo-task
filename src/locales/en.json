@@ -11,5 +11,10 @@
   "jobs.noJobs": "No jobs found.",
   "emptyState.refresh": "Refresh",
   "job.notFound": "Job not found.",
-  "app.swipejobs": "swipejobs"
+  "app.swipejobs": "swipejobs",
+  "toast.jobAccepted": "Job accepted!",
+  "toast.jobRejected": "Job rejected!",
+  "toast.acceptJobFailed": "Failed to accept job",
+  "toast.rejectJobFailed": "Failed to reject job",
+  "toast.unknownError": "Unknown error"
 }

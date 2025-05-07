@@ -19,7 +19,7 @@ export default StyleSheet.create({
     fontSize: 28,
     color: "#fff",
     letterSpacing: 1,
-    fontWeight: "400",
+    fontWeight: "300",
   },
   logoBold: {
     fontWeight: "600",

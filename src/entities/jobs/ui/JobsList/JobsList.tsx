@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 
 import { selectColorMode } from "@shared/api/generalSlice";
+import { ColorMode } from "@shared/model/general";
 import colorPalettes from "@shared/styles/colors";
 import { EmptyState } from "@shared/ui/EmptyState/EmptyState";
 
@@ -78,7 +79,7 @@ export const JobsList = ({
       }}
       onRefresh={onRefresh}
       refreshing={false}
-      indicatorStyle={colorMode === "dark" ? "white" : "black"}
+      indicatorStyle={colorMode === ColorMode.Dark ? "white" : "black"}
       refreshControl={
         <RefreshControl
           refreshing={false}
