@@ -12,7 +12,11 @@ export const JobCard = ({ job, colorMode, onPress }: JobCardProps) => {
   const colors = colorPalettes[colorMode];
 
   return (
-    <Pressable onPress={onPress} style={{ width: "100%" }}>
+    <Pressable
+      testID="job-card-root"
+      onPress={onPress}
+      style={{ width: "100%" }}
+    >
       <View
         style={[
           styles.card,
@@ -24,26 +28,42 @@ export const JobCard = ({ job, colorMode, onPress }: JobCardProps) => {
       >
         <View style={styles.header}>
           <Image
+            testID="job-card-image"
             source={{ uri: job.jobTitle.imageUrl }}
             style={styles.image}
             contentFit="cover"
           />
           <View style={styles.headerText}>
-            <Text style={[styles.title, { color: colors.text }]}>
+            <Text
+              testID="job-card-title"
+              style={[styles.title, { color: colors.text }]}
+            >
               {job.jobTitle.name}
             </Text>
-            <Text style={[styles.company, { color: colors.text }]}>
+            <Text
+              testID="job-card-company"
+              style={[styles.company, { color: colors.text }]}
+            >
               {job.company.name}
             </Text>
           </View>
         </View>
-        <Text style={[styles.address, { color: colors.text }]}>
+        <Text
+          testID="job-card-address"
+          style={[styles.address, { color: colors.text }]}
+        >
           {job.company.address.formattedAddress}
         </Text>
-        <Text style={[styles.wage, { color: colors.accept }]}>
+        <Text
+          testID="job-card-wage"
+          style={[styles.wage, { color: colors.accept }]}
+        >
           ${((job.wagePerHourInCents ?? 0) / 100).toFixed(2)} / hr
         </Text>
-        <Text style={[styles.distance, { color: colors.tint }]}>
+        <Text
+          testID="job-card-distance"
+          style={[styles.distance, { color: colors.tint }]}
+        >
           {job.milesToTravel.toFixed(1)} miles away
         </Text>
       </View>
